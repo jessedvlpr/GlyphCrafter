@@ -1,0 +1,26 @@
+* {
+    margin: 0;
+    padding: 0;
+    text-align: center;
+}
+
+body {
+    min-height: 100vh;
+    background-color: #111;
+}
+
+.draw-area {
+    position: absolute;
+    background-color: #222;
+    border-radius: 50%;
+    border: 2px solid #333;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    height: auto;
+    width: 95vh;
+    max-width: 95vw;
+    min-width: 50vh;
+    box-shadow: #000 0px 0px 20px 10px;
+    aspect-ratio: 1;
+}
