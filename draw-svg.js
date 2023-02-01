@@ -22,6 +22,7 @@ svg.onmousedown = startLine = function (e) {
     sy = y
 
     undoList = []
+    clearList = []
 
     line = document.createElementNS("http://www.w3.org/2000/svg", "polyline")
     line.setAttribute("fill", "none")
