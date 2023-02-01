@@ -1,4 +1,5 @@
 saveButton = document.getElementsByClassName("save")[0]
+loadButton = document.getElementsByClassName("load")[0]
 undoButton = document.getElementsByClassName("undo")[0]
 redoButton = document.getElementsByClassName("redo")[0]
 clearButton = document.getElementsByClassName("clear")[0]
@@ -12,6 +13,8 @@ saveButton.onclick = function saveSVG() {
     saveButton.href = URL.createObjectURL(file)
     saveButton.download = "glyph.svg"
 }
+
+loadButton.onclick = function () { }
 
 undoButton.onclick = function undoSVG() {
     if (clearList.length > 0) {
