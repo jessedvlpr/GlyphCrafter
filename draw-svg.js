@@ -3,21 +3,26 @@ const viewBox = {
     width: parseFloat(svg.getAttribute("viewBox").split(" ")[2]),
     height: parseFloat(svg.getAttribute("viewBox").split(" ")[3])
 }
+
 var svgRect = svg.getClientRects()[0]
 var sx, sy, ex, ey, x, y
 var clicked = false
-document.body.onresize = function () {
-    svgRect = svg.getClientRects()[0]
-}
-svg.onclick = function (e) {
 
-}
-svg.onmousedown = function (e) {
+document.body.onresize = function () { svgRect = svg.getClientRects()[0] }
+
+svg.onclick = function (e) { }
+svg.onmouseleave = function (e) { if (clicked) endLine(e) }
+
+svg.onmousedown = startLine = function (e) {
     clicked = true
+
     x = ((e.clientX - svgRect.left) * (viewBox.width / svgRect.width)).toFixed(3)
     y = ((e.clientY - svgRect.top) * (viewBox.height / svgRect.height)).toFixed(3)
     sx = x
     sy = y
+
+    undoList = []
+
     line = document.createElementNS("http://www.w3.org/2000/svg", "polyline")
     line.setAttribute("fill", "none")
     line.setAttribute("stroke", "white")
@@ -26,7 +31,8 @@ svg.onmousedown = function (e) {
     line.setAttribute("points", `${x},${y}`)
     svg.appendChild(line)
 }
-svg.onmouseup = function (e) {
+
+svg.onmouseup = endLine = function (e) {
     clicked = false
     ex = ((e.clientX - svgRect.left) * (viewBox.width / svgRect.width)).toFixed(3)
     ey = ((e.clientY - svgRect.top) * (viewBox.height / svgRect.height)).toFixed(3)
@@ -39,24 +45,13 @@ svg.onmouseup = function (e) {
     path.setAttribute("stroke-width", "5")
     path.setAttribute("stroke-linecap", "round")
     let middle = points[parseInt(points.length / 2)]
-    path.setAttribute("d", `M ${sx} ${sy} Q ${middle[0]} ${middle[1]} ${ex} ${ey}`)
-    // for (let i = 1; i < points.length; i++) {
-    //     let pos = points[i].split(",")
-    //     let curX = (parseFloat(pos[0]) - 200).toFixed(3)
-    //     let curY = parseFloat(pos[1]).toFixed(3)
+    // path.setAttribute("d", `M ${sx} ${sy} Q ${middle[0]} ${middle[1]} ${ex} ${ey}`)
 
-    //     try {
-    //         path.setAttribute("d", path.getAttribute("d") + ` Q ${curX} ${curY} ${curX} ${curY}`)
-    //     } catch (error) {
-
-    //     }
-
-    svg.appendChild(path)
-    // }
+    // svg.appendChild(path)
     // svg.removeChild(line)
 }
-svg.onmouseleave = function () { clicked = false }
-svg.onmousemove = function (e) {
+
+svg.onmousemove = drawLine = function (e) {
     if (!clicked) return
     x = ((e.clientX - svgRect.left) * (viewBox.width / svgRect.width)).toFixed(3)
     y = ((e.clientY - svgRect.top) * (viewBox.height / svgRect.height)).toFixed(3)
@@ -75,7 +70,7 @@ function cullPoints(points) {
         if (j != 0 && j != points.length - 1 && sc < min * min) {
             continue
         } else {
-            refPoint = pos.slice()
+            refPoint = pos
             temp.push(points[j])
         }
     }
