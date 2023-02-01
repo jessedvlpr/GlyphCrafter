@@ -9,6 +9,53 @@ body {
     background-color: #111;
 }
 
+.title {
+    position: absolute;
+    left: 20px;
+    top: 20px;
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    color: #ccc;
+}
+
+.button {
+    font-size: 30px;
+    padding-left: 5px;
+    padding-right: 5px;
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    color: #ccc;
+    cursor: pointer;
+    text-decoration: none;
+    user-select: none;
+}
+
+.button:hover {
+    background-color: #333;
+}
+
+.save {
+    position: absolute;
+    top: 70px;
+    left: 20px
+}
+
+.undo {
+    position: absolute;
+    top: 20px;
+    right: 100px
+}
+
+.redo {
+    position: absolute;
+    top: 20px;
+    right: 20px
+}
+
+.clear {
+    position: absolute;
+    top: 70px;
+    right: 20px
+}
+
 .draw-area {
     position: absolute;
     background-color: #222;
