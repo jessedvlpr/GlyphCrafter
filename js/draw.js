@@ -26,8 +26,8 @@ svg.onmousedown = startLine = function (e) {
 
     line = document.createElementNS("http://www.w3.org/2000/svg", "polyline")
     line.setAttribute("fill", "none")
-    line.setAttribute("stroke", "black")
-    line.setAttribute("stroke-width", "1")
+    line.setAttribute("stroke", "white")
+    line.setAttribute("stroke-width", "5")
     line.setAttribute("stroke-linecap", "round")
     line.setAttribute("points", `${x},${y}`)
     svg.appendChild(line)
@@ -56,7 +56,7 @@ svg.onmouseup = endLine = function (e) {
     path.setAttribute("d", `M ${sx} ${sy} C ${points[1][0]} ${points[1][1]} ${points[2][0]} ${points[2][1]} ${points[3][0]} ${points[3][1]}`)
     for (let i = 4; i < points.length; i++) {
         let d = path.getAttribute("d")
-        if (i % 3 == 0) path.setAttribute("d", d + ` S ${points[i - 1][0]} ${points[i - 1][1]} ${points[i][0]} ${points[i][1]}`)
+        if (i % 3 == 0 || i == points.length - 1) path.setAttribute("d", d + ` S ${points[i - 1][0]} ${points[i - 1][1]} ${points[i][0]} ${points[i][1]}`)
     }
     svg.appendChild(path)
     svg.removeChild(line)
@@ -73,7 +73,7 @@ svg.onmousemove = drawLine = function (e) {
 
 function cullPoints(points) {
     let temp = []
-    let min = 50
+    let min = 30
     let refPoint = points[0]
 
     for (let j = 0; j < points.length; j++) {
