@@ -53,7 +53,8 @@ svg.onmouseup = endLine = function (e) {
     path.setAttribute("stroke-width", "5")
     path.setAttribute("stroke-linecap", "round")
 
-    path.setAttribute("d", `M ${sx} ${sy} C ${points[1][0]} ${points[1][1]} ${points[2][0]} ${points[2][1]} ${points[3][0]} ${points[3][1]}`)
+    if (points.length > 2) path.setAttribute("d", `M ${sx} ${sy} C ${points[1][0]} ${points[1][1]} ${points[2][0]} ${points[2][1]} ${points[3][0]} ${points[3][1]}`)
+    else path.setAttribute("d", `M ${sx} ${sy} ${ex} ${ey}`)
     for (let i = 4; i < points.length; i++) {
         let d = path.getAttribute("d")
         if (i % 3 == 0 || i == points.length - 1) path.setAttribute("d", d + ` S ${points[i - 1][0]} ${points[i - 1][1]} ${points[i][0]} ${points[i][1]}`)
