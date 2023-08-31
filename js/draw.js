@@ -1,4 +1,4 @@
-const svg = document.getElementsByClassName('draw-area')[0]
+const svg = document.getElementById('draw-area')
 const viewBox = {
     width: parseFloat(svg.getAttribute("viewBox").split(" ")[2]),
     height: parseFloat(svg.getAttribute("viewBox").split(" ")[3])
@@ -74,7 +74,7 @@ svg.onmousemove = drawLine = function (e) {
 
 function cullPoints(points) {
     let temp = []
-    let min = 30
+    let min = 10
     let refPoint = points[0]
 
     for (let j = 0; j < points.length; j++) {

@@ -1,8 +1,8 @@
-saveButton = document.getElementsByClassName("save")[0]
-loadButton = document.getElementsByClassName("load")[0]
-undoButton = document.getElementsByClassName("undo")[0]
-redoButton = document.getElementsByClassName("redo")[0]
-clearButton = document.getElementsByClassName("clear")[0]
+saveButton = document.getElementById("save")
+loadButton = document.getElementById("load")
+undoButton = document.getElementById("undo")
+redoButton = document.getElementById("redo")
+clearButton = document.getElementById("clear")
 
 undoList = []
 clearList = []
