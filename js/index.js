@@ -1,5 +1,5 @@
-if (!checkCookie('fg')) setCookie('fg', [12, 45, 126], 365);
-if (!checkCookie('bg')) setCookie('bg', [4, 97, 123], 365);
+if (!checkCookie('fg')) setCookie('fg', [56, 56, 56], 365);
+if (!checkCookie('bg')) setCookie('bg', [23, 23, 23], 365);
 if (!checkCookie('text')) setCookie('text', [255, 255, 255], 365);
 
 changeColour('fg')
@@ -28,8 +28,8 @@ function changeColour(area) {
 }
 
 function resetColours() {
-    setCookie('fg', [12, 45, 126], 365);
-    setCookie('bg', [4, 97, 123], 365);
+    setCookie('fg', [56, 56, 56], 365);
+    setCookie('bg', [23, 23, 23], 365);
     setCookie('text', [255, 255, 255], 365);
     changeColour('fg');
     changeColour('bg');
