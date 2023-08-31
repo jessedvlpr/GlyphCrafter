@@ -1,10 +1,10 @@
-if (!checkCookie('fg')) setCookie('fg', [56, 56, 56], 365);
-if (!checkCookie('bg')) setCookie('bg', [23, 23, 23], 365);
-if (!checkCookie('text')) setCookie('text', [255, 255, 255], 365);
+if (!checkCookie('gc-fg')) setCookie('gc-fg', [56, 56, 56], 365);
+if (!checkCookie('gc-bg')) setCookie('gc-bg', [23, 23, 23], 365);
+if (!checkCookie('gc-text')) setCookie('gc-text', [255, 255, 255], 365);
 
-changeColour('fg')
-changeColour('bg')
-changeColour('text')
+changeColour('gc-fg')
+changeColour('gc-bg')
+changeColour('gc-text')
 
 function colourPicker(area) {
     let pckr = document.getElementById('colour-picker-' + area).value;
@@ -28,12 +28,12 @@ function changeColour(area) {
 }
 
 function resetColours() {
-    setCookie('fg', [56, 56, 56], 365);
-    setCookie('bg', [23, 23, 23], 365);
-    setCookie('text', [255, 255, 255], 365);
-    changeColour('fg');
-    changeColour('bg');
-    changeColour('text');
+    setCookie('gc-fg', [56, 56, 56], 365);
+    setCookie('gc-bg', [23, 23, 23], 365);
+    setCookie('gc-text', [255, 255, 255], 365);
+    changeColour('gc-fg');
+    changeColour('gc-bg');
+    changeColour('gc-text');
 }
 
 function setCookie(name, value, days) {
