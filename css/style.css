@@ -45,7 +45,7 @@ body {
     color: var(--text-colour);
     width: 80%;
     margin: 0 auto;
-    padding: 30px;
+    padding: 10px;
     overflow-y: hidden;
     user-select: none;
 }
@@ -111,7 +111,7 @@ body {
     max-width: 300px;
     min-width: 200px;
     /* height: 100%; */
-    z-index: 2;
+    z-index: 3;
     background-color: var(--fg-colour);
     transition: left .25s;
     box-shadow: #000 0px 0px 20px 0px;
@@ -151,7 +151,7 @@ body {
     left: 0;
     width: 100%;
     height: 100%;
-    z-index: 1;
+    z-index: 2;
     background-color: #000;
     opacity: 0;
     transition: opacity .25s;
