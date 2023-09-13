@@ -57,17 +57,27 @@ svg.onmouseup = endLine = function (e) {
 
     if((sx - ex)**2 + (sy - ey)**2 < 150**2){
         line.setAttribute("points", line.getAttribute("points") + ` ${sx},${sy}`);
-        circle = document.createElementNS("http://www.w3.org/2000/svg", "circle");
-        circle.setAttribute("fill","none");
-        circle.setAttribute("stroke","white");
-        circle.setAttribute("stroke-width","5");
-        circle.setAttribute("stroke-linecap","round");
     }
     
     let points = cullPoints(line.getAttribute("points").split(" ")
     .map((el) => el.split(",").map((el2) => parseFloat(el2))));
-    
-    if((sx - ex)**2 + (sy - ey)**2 < 150**2){
+
+    line.setAttribute("points", points.join(" "));
+
+    let path = document.createElementNS("http://www.w3.org/2000/svg", "path");
+    path.setAttribute("fill", "none");
+    path.setAttribute("stroke", "white");
+    path.setAttribute("stroke-width", "5");
+    path.setAttribute("stroke-linecap", "round");
+
+    if (points.length > 3) path.setAttribute("d", `M ${sx} ${sy} C ${points[1][0]} ${points[1][1]} ${points[2][0]} ${points[2][1]} ${points[3][0]} ${points[3][1]}`);
+    else path.setAttribute("d", `M ${sx} ${sy} ${ex} ${ey}`);
+    for (let i = 4; i < points.length; i++) {
+        if (i % 3 == 0 || i == points.length - 1) path.setAttribute("d", path.getAttribute("d") + ` S ${points[i - 1][0]} ${points[i - 1][1]} ${points[i][0]} ${points[i][1]}`);
+    }
+    svg.appendChild(path);
+    svg.removeChild(line);
+    if(points.length > 3 && (sx - ex)**2 + (sy - ey)**2 < 150**2){
         let leastX = points[0][0], leastY = points[0][1], mostX = points[0][0], mostY = points[0][1];
         for(let i = 0; i < points.length; i++){
             for(let j = 0; j < points.length; j++){
@@ -81,30 +91,31 @@ svg.onmouseup = endLine = function (e) {
                     leastY = points[j][1];
             }
         }
-        console.log(mostX-leastX/2)
-        console.log(mostX-leastX/2 * (viewBox.width / svgRect.width))
-        circle.setAttribute("cx", (mostX-leastX/2 + svgRect.left).toFixed(3));
-        circle.setAttribute("cy", (mostY-leastY/2 + svgRect.top).toFixed(3));
-        circle.setAttribute("r",((mostX-leastX)/2).toFixed(3) < ((mostY-leastY)/2).toFixed(3) ? ((mostX-leastX)/2).toFixed(3) : ((mostY-leastY)/2).toFixed(3));
-        // svg.appendChild(circle);
+        let cx = (leastX+mostX)/2;
+        let cy = (leastY+mostY)/2;
+        let radius = (mostX-leastX)/2 <= (mostY-leastY)/2 ? (mostX-leastX)/2 : (mostY-leastY)/2;
+        let pointDist = (2*Math.PI*radius)/points.length;
+        let angle = pointDist/radius;
+        let circle = document.createElementNS("http://www.w3.org/2000/svg", "path");
+        let ctrlX = (cx + radius * Math.cos(angle));
+        let ctrlY = (cy + radius * Math.sin(angle));
+        circle.setAttribute("fill","none");
+        circle.setAttribute("stroke","white");
+        circle.setAttribute("stroke-width","5");
+        circle.setAttribute("stroke-linecap","round");
+        circle.setAttribute("d", `M ${cx+radius} ${cy} `);
+        for(let i = 0; i < points.length; i++){
+            let curAngle = angle * (i + 1);
+            let nextX = cx + radius * Math.cos(curAngle);
+            let nextY = cy + radius * Math.sin(curAngle);
+            circle.setAttribute("d", circle.getAttribute("d") + `Q ${(ctrlX + nextX)/2} ${(ctrlY + nextY)/2} ${nextX} ${nextY} `);
+            
+            ctrlX = cx + radius * Math.cos(curAngle);
+            ctrlY = cy + radius * Math.sin(curAngle);
+        }
+        svg.appendChild(circle);
+        svg.removeChild(path)
     }
-
-    line.setAttribute("points", points.join(" "));
-
-    let path = document.createElementNS("http://www.w3.org/2000/svg", "path");
-    path.setAttribute("fill", "none");
-    path.setAttribute("stroke", "white");
-    path.setAttribute("stroke-width", "5");
-    path.setAttribute("stroke-linecap", "round");
-
-    if (points.length > 2) path.setAttribute("d", `M ${sx} ${sy} C ${points[1][0]} ${points[1][1]} ${points[2][0]} ${points[2][1]} ${points[3][0]} ${points[3][1]}`);
-    else path.setAttribute("d", `M ${sx} ${sy} ${ex} ${ey}`);
-    for (let i = 4; i < points.length; i++) {
-        let d = path.getAttribute("d");
-        if (i % 3 == 0 || i == points.length - 1) path.setAttribute("d", d + ` S ${points[i - 1][0]} ${points[i - 1][1]} ${points[i][0]} ${points[i][1]}`);
-    }
-    svg.appendChild(path);
-    svg.removeChild(line);
 }
 
 svg.onmousemove = drawLine = function (e) {
