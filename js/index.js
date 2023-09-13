@@ -7,12 +7,12 @@ changeColour('bg')
 changeColour('text')
 
 function colourPicker(area) {
-    let pckr = document.getElementById('colour-picker-' + area).value;
+    let pckr = document.getElementById('colour-picker-' + area.split("-")[1]).value;
     let r = parseInt(pckr.substring(1, 3), 16);
     let g = parseInt(pckr.substring(3, 5), 16);
     let b = parseInt(pckr.substring(5, 7), 16);
     setCookie(area, [r, g, b], 365);
-    changeColour(area)
+    changeColour(area.split("-")[1])
 }
 
 function changeColour(area) {
