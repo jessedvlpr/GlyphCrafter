@@ -93,27 +93,38 @@ svg.onmouseup = endLine = function (e) {
         }
         let cx = (leastX+mostX)/2;
         let cy = (leastY+mostY)/2;
-        let radius = (mostX-leastX)/2 <= (mostY-leastY)/2 ? (mostX-leastX)/2 : (mostY-leastY)/2;
+        let radius = (mostX-leastX)/2 >= (mostY-leastY)/2 ? (mostX-leastX)/2 : (mostY-leastY)/2;
         let pointDist = (2*Math.PI*radius)/points.length;
         let angle = pointDist/radius;
-        let circle = document.createElementNS("http://www.w3.org/2000/svg", "path");
-        let ctrlX = (cx + radius * Math.cos(angle));
-        let ctrlY = (cy + radius * Math.sin(angle));
-        circle.setAttribute("fill","none");
-        circle.setAttribute("stroke","white");
-        circle.setAttribute("stroke-width","5");
-        circle.setAttribute("stroke-linecap","round");
-        circle.setAttribute("d", `M ${cx+radius} ${cy} `);
+        let circlePath = document.createElementNS("http://www.w3.org/2000/svg", "path");
+        circlePath.setAttribute("fill","none");
+        circlePath.setAttribute("stroke","white");
+        circlePath.setAttribute("stroke-width","5");
+        circlePath.setAttribute("stroke-linecap","round");
+        circlePath.setAttribute("d", `M ${cx + radius} ${cy} `);
+        let circlePoints = [];
+        let id = null;
         for(let i = 0; i < points.length; i++){
-            let curAngle = angle * (i + 1);
-            let nextX = cx + radius * Math.cos(curAngle);
-            let nextY = cy + radius * Math.sin(curAngle);
-            circle.setAttribute("d", circle.getAttribute("d") + `Q ${(ctrlX + nextX)/2} ${(ctrlY + nextY)/2} ${nextX} ${nextY} `);
-            
-            ctrlX = cx + radius * Math.cos(curAngle);
-            ctrlY = cy + radius * Math.sin(curAngle);
+            let curAngle = angle * (i+1);
+            circlePath.setAttribute("d", circlePath.getAttribute("d") + `A ${radius} ${radius} ${curAngle} 0 1 ${cx + radius * Math.cos(curAngle)} ${cy + radius * Math.sin(curAngle)} `);
+            circlePoints.push([cx + radius * Math.cos(curAngle), cy + radius * Math.sin(curAngle)]);
         }
-        svg.appendChild(circle);
+        console.log(points.length);
+        console.log(circlePoints.length);
+        // let frames = 20;
+        // for(let i = 0; i < frames; i++){
+        //     id = setTimeout(async function() {
+        //         for(let j = 0; j < points.length; j++){
+        //             // console.log(i + " " + j);
+        //             let distX = (points[j][0] + circlePoints[j][0]) / frames;
+        //             let distY = (points[j][1] + circlePoints[j][1]) / frames;
+        //             console.log("lerp");
+        //         }
+        //         clearTimeout(id);
+        //     }, 100 * i);
+        // }
+        // clearTimeout(id);
+        svg.appendChild(circlePath);
         svg.removeChild(path)
     }
 }
