@@ -27,16 +27,10 @@
     margin: 0;
     font-family: 'Roboto', serif, sans-serif, sysem-ui;
     scrollbar-width: none;
-    color: var(--text-colour)
 }
 
 body {
     background-color: var(--bg-colour);
-}
-
-#navbar path {
-    stroke: var(--text-colour);
-    fill: var(--text-colour);
 }
 
 #wrapper {
@@ -70,8 +64,8 @@ body {
     background-color: var(--fg-colour);
     box-shadow: color-mix(in srgb, var(--bg-colour), rgb(20, 20, 20)) 5px 5px 20px -5px;
     aspect-ratio: 1/1;
-    height: 2.5em;
-    line-height: 2.5em;
+    height: 2em;
+    line-height: 2em;
     border-radius: 50%;
 }
 
@@ -84,6 +78,7 @@ body {
 
 #navbar-widget {
     position: absolute;
+    font-size: 20px;
     z-index: 3;
     top: 0;
     left: 350px;
@@ -140,9 +135,13 @@ body {
     background-color: color-mix(in srgb, var(--fg-colour), rgb(0, 0, 0));
 }
 
-#socials a:hover path {
-    stroke: color-mix(in srgb, var(--text-colour), rgb(20, 20, 20));
-    fill: color-mix(in srgb, var(--text-colour), rgb(20, 20, 20));
+#socials i {
+    font-size: 40px;
+    margin: 5px;
+}
+
+#socials a:hover {
+    color: color-mix(in srgb, var(--text-colour), rgb(20, 20, 20));
 }
 
 #screen-cover {
