@@ -106,7 +106,7 @@ svg.onmouseup = endLine = function (e) {
             diff.y = points[i - 1][1] / points[i][1];
             let RoC = { x: Math.abs((diff.x / lastDiff.x) - 1) + 1, y: Math.abs((diff.y / lastDiff.y) - 1) + 1 };
 
-            if (RoC.x * RoC.y > 1.015) {
+            if (RoC.x * RoC.y > 1.035) {
                 endPoints.push(points[i]);
                 // console.log(RoC.x * RoC.y);
             }
