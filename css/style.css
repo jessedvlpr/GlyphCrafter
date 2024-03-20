@@ -25,12 +25,12 @@
 * {
     padding: 0;
     margin: 0;
-    font-family: 'Roboto', serif, sans-serif, sysem-ui;
     scrollbar-width: none;
 }
 
 body {
     background-color: var(--bg-colour);
+    font-family: 'Roboto', serif, sans-serif, sysem-ui;
 }
 
 #wrapper {
@@ -111,6 +111,7 @@ body {
     transition: left .25s;
     box-shadow: #000 0px 0px 20px 0px;
     color: var(--text-colour);
+    font-family: 'Fredoka', serif, sans-serif, sysem-ui;
 }
 
 #navbar a {
@@ -183,7 +184,7 @@ body {
 }
 
 .button:hover {
-    background-color: color-mix(in srgb, var(--fg-colour), rgb(20,20,20));
+    background-color: color-mix(in srgb, var(--fg-colour), rgb(20, 20, 20));
 }
 
 #save {
@@ -234,7 +235,8 @@ body {
     aspect-ratio: 1;
 }
 
-#draw-area path, #draw-area polyline{
+#draw-area path,
+#draw-area polyline {
     stroke: var(--text-colour);
 }
 
